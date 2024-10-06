@@ -14,6 +14,14 @@ go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
 ```
 
+Httpx Manual Install:
+```
+cd {Your httpx path}
+go build; \
+mv httpx /usr/local/bin/; \
+httpx -version;
+```
+
 Run:
 ```
 python3 main.py target.com --auto
