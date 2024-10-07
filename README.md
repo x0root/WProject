@@ -67,9 +67,3 @@ Spyhunt (No License)
 
 Its just a tool what u expect :)
 Made by x0root.
-python3 spyhunt.py -or domain.com -v -c 50
-```
-Haveibeenpwned
-```
-python3 spyhunt.py -hibp password
-```
