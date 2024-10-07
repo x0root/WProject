@@ -44,7 +44,7 @@ WProject is high-level web vulnerability scanner assessment tool. This tool is d
 
 7. The script includes a CIDR notation scanner for port scanning across IP ranges.
 
-# INSTALLATION
+# Install
 
 ```bash
 
