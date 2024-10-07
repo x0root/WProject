@@ -59,11 +59,11 @@ go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
 ```
 
 Credits:
-Subfinder (MIT License)
-Https (MIT License)
-Nuclei (MIT License)
-identYwaf (MIT License)
-Spyhunt (No License)
+- Subfinder (MIT License)             
+- Https (MIT License)                        
+- Nuclei (MIT License)           
+- identYwaf (MIT License)             
+- Spyhunt (No License)          
 
 Its just a tool what u expect :)
 Made by x0root.
