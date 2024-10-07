@@ -65,5 +65,4 @@ Credits:
 - identYwaf (MIT License)             
 - Spyhunt (No License)          
 
-Its just a tool what u expect :)
 Made by x0root.
