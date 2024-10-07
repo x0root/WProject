@@ -62,7 +62,8 @@ Credits:
 - Subfinder (MIT License)             
 - Https (MIT License)                        
 - Nuclei (MIT License)           
-- identYwaf (MIT License)             
+- identYwaf (MIT License)
+- Ghauri (MIT License)         
 - Spyhunt (No License)          
 
 Made by x0root.
