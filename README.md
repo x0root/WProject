@@ -1,6 +1,6 @@
 # About
 
-WProject is high-level web vulnerability scanner assessment tool. This tool is designed for security professionals and penetration testers to perform comprehensive reconnaissance and vulnerability assessment on target networks and web applications. It combines multiple scanning techniques and integrates various external tools to provide a wide range of information about the target.
+WProject is high-level web vulnerability scanner assessment tool. This tool is designed for security professionals and penetration testers to perform comprehensive vulnerability scanning and vulnerability assessment on web applications. It combines multiple scanning techniques and integrates various external tools to provide a wide range of information about the target.
 
 ## Here's a high-level overview of its functionality
 
