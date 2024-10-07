@@ -5,6 +5,7 @@ shodan
 mmh3
 PyExecJS
 python3-nmap
+nmap3
 beautifulsoup4
 fake-useragent
 googlesearch-python

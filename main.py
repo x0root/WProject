@@ -6,6 +6,7 @@ import tabulate
 from colorama import Fore, Style
 from urllib.parse import urlparse  # Moved import to the top for clarity
 import textwrap  # Import textwrap for wrapping text
+import nmap3
 from tabulate import tabulate  # Ensure tabulate is imported
 
 def run_command_with_timeout(command, timeout):
@@ -38,16 +39,39 @@ def main():
         print("Expected one argument: the domain to scan.")
         sys.exit(1)
 
+    domain = args.domain  # Assign the domain from the parsed arguments
+    if domain:
+        # Remove any subdomains to get the main domain
+        domain_parts = domain.split('.')
+        if len(domain_parts) > 2:
+            domain = '.'.join(domain_parts[-2:])
+
     if args.auto:
         results = []
 
+        import subprocess
+
+        def run_command(command):
+            command_output = ""
+            command_error = ""
+            process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            try:
+                command_output, command_error = process.communicate(timeout=15)  # Set timeout to 15 seconds
+            except subprocess.TimeoutExpired:
+                print(f"Command '{' '.join(command)}' exceeded 15 seconds and will be forcibly terminated.")
+                process.kill()  # Forcefully terminate the process
+                command_output, command_error = process.communicate()  # Capture any output after termination
+                return None, "Timeout"
+            return command_output.strip(), command_error.strip()
+
         commands = [
-            (['python', 'spyhunt.py', '-or', args.domain, '-v', '-c', '50'], "Other Scan"),
-            (['python3', 'spyhunt.py', '-ph', args.domain], "Port Scan"),
+            (['python3', 'spyhunt.py', '-or', args.domain, '-v', '-c', '50'], "Other Scan"),  # Added timeout of 18 seconds
         ]
 
-        for command, description in commands:
-            stdout, stderr = run_command_with_timeout(command, timeout=30)
+        for command_info in commands:
+            command = command_info[0]
+            description = command_info[1] if len(command_info) > 1 else "No description"
+            stdout, stderr = run_command_with_timeout(command, timeout=30)  # Set timeout to 30 seconds
             print(f"Running: {' '.join(command)}")  # Print the command being run
             print(f"Output: {stdout}")  # Print the output
             print(f"Error: {stderr}")  # Print any errors
@@ -62,13 +86,13 @@ def main():
             domain_parts = domain.split('.')
             if len(domain_parts) > 2:
                 domain = '.'.join(domain_parts[-2:])
-            subfinder_result = run_command_with_timeout(['subfinder', '-d', domain, '-o', 'subdomains.txt'], timeout=50)
+            subfinder_result = run_command_with_timeout(['subfinder', '-d', domain, '-o', 'subdomains.txt'], timeout=30)
             results.append(["Subfinder", subfinder_result[0] if subfinder_result[0] else "Error", subfinder_result[1] if subfinder_result[1] else ""])
 
-            httpx_result = run_command_with_timeout(['httpx', '-sc', '-td', '-title', '-probe', '-fhr', '-location', '-list', 'subdomains.txt'], timeout=50)
+            httpx_result = run_command_with_timeout(['httpx', '-sc', '-td', '-title', '-probe', '-fhr', '-location', '-list', 'subdomains.txt'], timeout=30)
             results.append(["HTTPX Scan", httpx_result[0] if httpx_result[0] else "Error", httpx_result[1] if httpx_result[1] else ""])
 
-        waf_result = run_command_with_timeout(['python3', 'waf/identYwaf.py', '--random-agent', domain], timeout=40)
+        waf_result = run_command_with_timeout(['python3', 'waf/identYwaf.py', '--random-agent', domain], timeout=30)
         results.append(["WAF Identification", waf_result[0] if waf_result[0] else "Error", waf_result[1] if waf_result[1] else ""])
 
         # Flatten Nuclei results
@@ -79,12 +103,14 @@ def main():
         ]
 
         for command, description in nuclei_commands:
-            stdout, stderr = run_command_with_timeout(command, timeout=50)
+            stdout, stderr = run_command_with_timeout(command, timeout=30)  # Set timeout to 30 seconds
             print(f"Running: {' '.join(command)}")  # Print the command being run
             print(f"Output: {stdout}")  # Print the output
             print(f"Error: {stderr}")  # Print any errors
             results.append([description, stdout if stdout else "Error", stderr if stderr else ""])
-
+        print("")
+        print("====Scan Result====")
+        print("")
         # Print results in a compact table format
         max_output_length = 50  # Set a maximum length for output and error messages
         compact_results = []
