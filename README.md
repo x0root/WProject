@@ -48,10 +48,9 @@ go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
 
 Credits:
 - Subfinder (MIT License)             
-- Https (MIT License)                        
+- Https (MIT License)            
 - Nuclei (MIT License)           
-- identYwaf (MIT License)
-- Ghauri (MIT License)         
+- identYwaf (MIT License)       
 - Spyhunt (No License)          
 
 Made by x0root.
