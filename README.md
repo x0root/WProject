@@ -11,20 +11,8 @@ WProject is high-level web vulnerability scanner assessment tool. This tool is d
 3. It includes multiple scanning functions for different purposes:
    - Subdomain enumeration
    - Technology detection
-   - DNS record scanning
    - Web crawling and URL extraction
    - Favicon hash calculation
-   - Host header injection testing
-   - Security header analysis
-   - Network vulnerability analysis
-   - Wayback machine URL retrieval
-   - JavaScript file discovery
-   - Broken link checking
-   - HTTP request smuggling detection
-   - IP address extraction
-   - Domain information gathering
-   - API endpoint fuzzing
-   - Shodan integration for additional recon
    - 403 Forbidden bypass attempts
    - Directory and file brute-forcing
    - Local File Inclusion (LFI) scanning with Nuclei
@@ -34,7 +22,7 @@ WProject is high-level web vulnerability scanner assessment tool. This tool is d
    - XSS
    - Web Server Detection
    - JavaScript file scanning for sensitive info
-   - Good Scan Report using Table.
+   - Good Scan Report
 
 4. The script uses multithreading and multiprocessing to perform scans efficiently.
 
