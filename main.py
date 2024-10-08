@@ -30,7 +30,7 @@ def main():
     print("Made by x0root")
 
     parser = argparse.ArgumentParser(description='Automated scanning tool.')
-    parser.add_argument('domain', nargs='?', help='The domain to scan')
+    parser.add_argument('-u', '--domain', required=True, help='The domain to scan')
     parser.add_argument('--auto', action='store_true', help='Run automated scans')
 
     args = parser.parse_args()
@@ -65,13 +65,15 @@ def main():
             return command_output.strip(), command_error.strip()
 
         commands = [
-            (['python3', 'spyhunt.py', '-or', args.domain, '-v', '-c', '50'], "Other Scan"),  # Added timeout of 18 seconds
+            (['python3', 'spyhunt.py', '-or', args.domain, '-v', '-c', '50'], "OR Scan"),
+            (['python3', 'spyhunt.py', '-fi', args.domain], "FavIcon hashes"),
+            (['python3', 'spyhunt.py', '-javascript', args.domain], "Broken Link"),
         ]
 
         for command_info in commands:
             command = command_info[0]
             description = command_info[1] if len(command_info) > 1 else "No description"
-            stdout, stderr = run_command_with_timeout(command, timeout=30)  # Set timeout to 30 seconds
+            stdout, stderr = run_command(command)  # Use the existing run_command function
             print(f"Running: {' '.join(command)}")  # Print the command being run
             print(f"Output: {stdout}")  # Print the output
             print(f"Error: {stderr}")  # Print any errors

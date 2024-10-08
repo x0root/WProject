@@ -6,6 +6,8 @@ mmh3
 PyExecJS
 python3-nmap
 nmap3
+tldextrac
+chardet
 beautifulsoup4
 fake-useragent
 googlesearch-python
