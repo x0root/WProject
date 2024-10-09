@@ -46,6 +46,28 @@ go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
 
 ```
 
+# Usage
+
+```python
+       __  __  __     ___ _____
+ (   //__)/__)/  )  /(_  / )/
+ |/|//   / ( (__/(_/ /__(__(
+
+
+V.10
+Made by x0root
+usage: main.py [-h] -u DOMAIN [--auto] [--random-agent] [--fbypass]
+
+Automated scanning tool.
+
+options:
+  -h, --help            show this help message and exit
+  -u                    The domain to scan
+  --auto                Run automated scans
+  --random-agent        Use a random user agent for requests
+  --fbypass             Bypass 403
+```
+
 Credits:
 - Subfinder (MIT License)             
 - Https (MIT License)            
