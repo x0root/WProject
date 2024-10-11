@@ -57,6 +57,7 @@ options:
   --auto                Run automated scans
   --random-agent        Use a random user agent for requests
   --fbypass             Bypass 403
+  --cleanup             Delete subdomains.txt after using subfinder
 ```
 
 Credits:
