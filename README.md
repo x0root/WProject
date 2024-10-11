@@ -2,14 +2,13 @@
 
 WProject is high-level web vulnerability scanner assessment tool. This tool is designed for security professionals and penetration testers to perform comprehensive vulnerability scanning and vulnerability assessment on web applications. It combines multiple scanning techniques and integrates various external tools to provide a wide range of information about the target.
 
-## Here's a high-level overview of its functionality
+## Main Features
 
 1. It imports various libraries for web scanning, web scraping, and parallel processing.
 
-2. The script defines a colorful banner and sets up command-line argument parsing for different scanning options.
-
-3. It includes multiple scanning functions for different purposes:
+2. It includes multiple scanning functions for different purposes:
    - Subdomain enumeration
+   - Whois Lookup
    - Technology detection
    - Web crawling and URL extraction
    - Favicon hash calculation
@@ -18,19 +17,11 @@ WProject is high-level web vulnerability scanner assessment tool. This tool is d
    - Local File Inclusion (LFI) scanning with Nuclei
    - Google dorking
    - Directory Traversal
-   - SQL Injection
-   - XSS
    - Web Server Detection
    - JavaScript file scanning for sensitive info
    - Good Scan Report
 
-4. The script uses multithreading and multiprocessing to perform scans efficiently.
-
-5. It includes options to save results to files and customize scan parameters.
-
-6. It implements various techniques to bypass restrictions and discover vulnerabilities.
-
-7. The script includes a CIDR notation scanner for port scanning across IP ranges.
+3. It includes options to save results to files
 
 # Install
 
@@ -72,7 +63,8 @@ Credits:
 - Subfinder (MIT License)             
 - Https (MIT License)            
 - Nuclei (MIT License)           
-- identYwaf (MIT License)       
+- identYwaf (MIT License)
+- SWS-Recon-Tool (MIT License)       
 - Spyhunt (No License)          
 
 Made by x0root.
