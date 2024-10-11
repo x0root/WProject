@@ -1,6 +1,7 @@
 import argparse
 import subprocess
 import sys
+import os
 import time
 import tabulate
 from colorama import Fore, Style
@@ -32,6 +33,32 @@ def main():
     parser = argparse.ArgumentParser(description='Automated scanning tool.')
     parser.add_argument('-u', '--domain', required=True, help='The domain to scan')
     parser.add_argument('--auto', action='store_true', help='Run automated scans')
+    parser.add_argument('--random-agent', action='store_true', help='Use a random user agent for requests')
+    parser.add_argument('--fbypass', action='store_true', help='Bypass 403')
+    parser.add_argument('--cleanup', action='store_true', help='Delete subdomains.txt after using subfinder')
+
+    def cleanup_subdomains(file_path='subdomains.txt'):
+        """Delete the specified subdomains file if it exists."""
+        try:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+                print(f"Deleted {file_path}.")
+            else:
+                print(f"{file_path} does not exist.")
+        except Exception as e:
+            print(f"Error deleting {file_path}: {str(e)}")
+
+    args = parser.parse_args()  # Ensure args is defined before use
+    if args.cleanup:
+        cleanup_subdomains()  # Call the cleanup function if the flag is set
+    args = parser.parse_args()  # Move this line up to ensure args is defined before use
+    if args.fbypass:
+        command = ['python3', 'forbiddenpass.py', '-t', domain]  # Use args.domain instead of domain
+        stdout, stderr = run_command(command)
+        print(f"Running: {' '.join(command)}")  # Print the command being run
+        print(f"Output: {stdout}")  # Print the output
+        print(f"Error: {stderr}")  # Print any errors
+        sys.exit(0)  # Exit after running the command
 
     args = parser.parse_args()
 
@@ -63,11 +90,15 @@ def main():
                 command_output, command_error = process.communicate()  # Capture any output after termination
                 return None, "Timeout"
             return command_output.strip(), command_error.strip()
+        
+        print("====Performing Basic Scan====")
 
         commands = [
             (['python3', 'spyhunt.py', '-or', args.domain, '-v', '-c', '50'], "OR Scan"),
             (['python3', 'spyhunt.py', '-fi', args.domain], "FavIcon hashes"),
             (['python3', 'spyhunt.py', '-javascript', args.domain], "Broken Link"),
+            (['python3', 'SWS-Recon.py', '--whois', '-d', domain], "Whois"),
+            (['python3', 'SWS-Recon.py', '-t', '-d', domain], "Technologies"),
         ]
 
         for command_info in commands:
@@ -78,6 +109,8 @@ def main():
             print(f"Output: {stdout}")  # Print the output
             print(f"Error: {stderr}")  # Print any errors
             results.append([description, stdout if stdout else "Error", stderr if stderr else ""])
+
+        print("====Performing Subfinder Scan====")
 
         # Extract the domain from the provided URL
         parsed_url = urlparse(args.domain)
@@ -91,17 +124,23 @@ def main():
             subfinder_result = run_command_with_timeout(['subfinder', '-d', domain, '-o', 'subdomains.txt'], timeout=30)
             results.append(["Subfinder", subfinder_result[0] if subfinder_result[0] else "Error", subfinder_result[1] if subfinder_result[1] else ""])
 
-            httpx_result = run_command_with_timeout(['httpx', '-sc', '-td', '-title', '-probe', '-fhr', '-location', '-list', 'subdomains.txt'], timeout=30)
-            results.append(["HTTPX Scan", httpx_result[0] if httpx_result[0] else "Error", httpx_result[1] if httpx_result[1] else ""])
+        print("====Performing HTTPX Scan====")
+
+        httpx_result = run_command_with_timeout(['httpx', '-sc', '-td', '-title', '-probe', '-fhr', '-location', '-list', 'subdomains.txt'], timeout=50)
+        results.append(["HTTPX Scan", httpx_result[0] if httpx_result[0] else "Error", httpx_result[1] if httpx_result[1] else ""])
+
+        print("====Performing WAF Scan====")
 
         waf_result = run_command_with_timeout(['python3', 'waf/identYwaf.py', '--random-agent', domain], timeout=30)
         results.append(["WAF Identification", waf_result[0] if waf_result[0] else "Error", waf_result[1] if waf_result[1] else ""])
+
+        print("====Performing Nuclei Scan====")
 
         # Flatten Nuclei results
         nuclei_results = []
         nuclei_commands = [
             (['nuclei', '-u', args.domain, '-t', 'http/cves/2024/CVE-2024-44000.yaml', 'http/cves/2024/CVE-2024-20419.yaml', 'javascript/cves/2024/CVE-2024-47176.yaml', 'http/cves/2024/CVE-2024-27564.yaml', 'http/cves/2024/CVE-2024-34351.yaml', 'http/cves/2024/CVE-2024-38472.yaml'], "Nuclei CVE Scans"),
-            (['nuclei', '-u', args.domain], "Nuclei Default Templates"),
+            (['nuclei', '-u', domain], "Nuclei Default Templates"),
         ]
 
         for command, description in nuclei_commands:
@@ -110,8 +149,9 @@ def main():
             print(f"Output: {stdout}")  # Print the output
             print(f"Error: {stderr}")  # Print any errors
             results.append([description, stdout if stdout else "Error", stderr if stderr else ""])
+        
         print("")
-        print("====Scan Result====")
+        print("=====Scan Result=====")
         print("")
         # Print results in a compact table format
         max_output_length = 50  # Set a maximum length for output and error messages
