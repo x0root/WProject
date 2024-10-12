@@ -64,4 +64,4 @@ Credits:
 - SWS-Recon-Tool (MIT License)       
 - Spyhunt (No License)          
 
-Made by x0root.
+<p>Its just a basic tool what u expect</p>
