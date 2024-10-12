@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Command Execution</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    #terminal {
+      height: 600px; /* Increased height */
+      background-color: #000;
+      color: #0f0;
+      padding: 15px;
+      overflow-y: scroll; /* Enable vertical scrolling */
+      font-family: monospace;
+      font-size: 12px; /* Smaller font size for better readability */
+      border: 1px solid #ccc; /* Optional border for better visibility */
+      white-space: pre-wrap; /* Preserve white space, line breaks, and formatting */
+    }
+  </style>
+</head>
+<body class="container mt-5">
+  <h2>Execute Command on Domain</h2>
+  
+  <!-- Form to capture domain and parameters -->
+  <form id="domain-form">
+    <div class="mb-3">
+      <label for="domain" class="form-label">Domain</label>
+      <input type="text" class="form-control" id="domain" name="domain" required placeholder="Enter domain (e.g., example.com)">
+    </div>
+    <div class="mb-3">
+      <label for="parameter" class="form-label">Parameter</label>
+      <input type="text" class="form-control" id="parameter" name="parameter" required placeholder="Enter parameters (e.g., --auto --random-agent)">
+    </div>
+    <button type="submit" class="btn btn-primary" id="start-button">Start!</button>
+  </form>
+
+  <!-- Terminal Box for Real-time Output -->
+  <div class="mt-4">
+    <h4>Terminal Output</h4>
+    <div id="terminal"></div>
+  </div>
+
+  <!-- Adding Bootstrap and JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // JavaScript to handle form submission and update the terminal
+    const form = document.getElementById('domain-form');
+    const terminal = document.getElementById('terminal');
+    const startButton = document.getElementById('start-button');
+
+    // Helper function to remove ANSI escape sequences
+    function removeAnsiCodes(text) {
+      return text.replace(/[\u001b\u009b][[()#;?]*((\d{1,4}(;\d{0,4})*)?[0-9A-ORZcf-nqry=><])/g, '');
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const domain = document.getElementById('domain').value;
+      const parameter = document.getElementById('parameter').value;
+
+      // Split the parameters by spaces and pass them as an array
+      const parametersArray = parameter.split(' ');
+
+      // Disable the start button and show feedback
+      startButton.disabled = true;
+      terminal.innerHTML = 'Executing command...<br>';
+
+      // Send the form data to the backend via POST
+      const response = await fetch('/execute', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ domain, parameters: parametersArray }),
+      });
+
+      // Re-enable the button once the command is processed
+      startButton.disabled = false;
+
+      // Read the real-time output and update the terminal
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+
+        // Decode the output and remove ANSI codes
+        let output = decoder.decode(value);
+        output = removeAnsiCodes(output);
+
+        // Append output to terminal
+        terminal.innerHTML += output + '<br>';
+        terminal.scrollTop = terminal.scrollHeight; // Scroll to the bottom as new output comes
+      }
+    });
+  </script>
+</body>
+</html>

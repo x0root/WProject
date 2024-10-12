@@ -71,11 +71,52 @@ def main():
     print("Made by x0root")
 
     parser = argparse.ArgumentParser(description='Automated scanning tool.')
-    parser.add_argument('-u', '--domain', required=True, help='The domain to scan')
+    parser.add_argument('-u', '--domain', required='--gui' not in sys.argv, help='The domain to scan')
     parser.add_argument('--auto', action='store_true', help='Run automated scans')
     parser.add_argument('--random-agent', action='store_true', help='Use a random user agent for requests')
     parser.add_argument('--fbypass', action='store_true', help='Bypass 403')
     parser.add_argument('--cleanup', action='store_true', help='Delete subdomains.txt and output.html after use')
+    parser.add_argument('--gui', action='store_true', help='Start a Flask web server and serve index.html')
+
+    def start_flask_server():
+        from flask import Flask, send_from_directory, request, Response
+        import json
+        import subprocess
+
+        app = Flask(__name__)
+
+        @app.route('/web/index.html')
+        def serve_index():
+            return send_from_directory('web', 'index.html')
+
+        @app.route('/')
+        def root():
+            return serve_index()
+        
+        @app.route('/execute', methods=['POST'])
+        def execute_command():
+            data = json.loads(request.data)
+            domain = data.get('domain')
+            parameters = data.get('parameters', [])
+
+            # Build the command dynamically
+            command = ['python', 'main.py', '-u', domain] + parameters
+
+            # Run the command in real-time and stream the output back to the frontend
+            def generate():
+                process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                for line in iter(process.stdout.readline, b''):
+                    yield line.decode('utf-8')
+                process.stdout.close()
+
+            return Response(generate(), mimetype='text/plain')
+
+        app.run(host='127.0.0.1', port=5000)
+
+    args = parser.parse_args()
+    if args.gui:
+        start_flask_server()
+        sys.exit(0)
 
     def cleanup_files(subdomains_file='subdomains.txt', output_file='output.html'):
         """Delete the specified subdomains file and output file if they exist."""
