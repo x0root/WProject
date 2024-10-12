@@ -75,22 +75,23 @@ def main():
     parser.add_argument('--auto', action='store_true', help='Run automated scans')
     parser.add_argument('--random-agent', action='store_true', help='Use a random user agent for requests')
     parser.add_argument('--fbypass', action='store_true', help='Bypass 403')
-    parser.add_argument('--cleanup', action='store_true', help='Delete subdomains.txt after using subfinder')
+    parser.add_argument('--cleanup', action='store_true', help='Delete subdomains.txt and output.html after use')
 
-    def cleanup_subdomains(file_path='subdomains.txt'):
-        """Delete the specified subdomains file if it exists."""
+    def cleanup_files(subdomains_file='subdomains.txt', output_file='output.html'):
+        """Delete the specified subdomains file and output file if they exist."""
         try:
-            if os.path.exists(file_path):
-                os.remove(file_path)
-                print(f"Deleted {file_path}.")
-            else:
-                print(f"{file_path} does not exist.")
+            for file_path in [subdomains_file, output_file]:
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                    print(f"Deleted {file_path}.")
+                else:
+                    print(f"{file_path} does not exist.")
         except Exception as e:
-            print(f"Error deleting {file_path}: {str(e)}")
+            print(f"Error deleting files: {str(e)}")
 
     args = parser.parse_args()  # Ensure args is defined before use
     if args.cleanup:
-        cleanup_subdomains()  # Call the cleanup function if the flag is set
+        cleanup_files()  # Call the cleanup function if the flag is set
     args = parser.parse_args()  # Move this line up to ensure args is defined before use
     if args.fbypass:
         command = ['python3', 'forbiddenpass.py', '-t', domain]  # Use args.domain instead of domain
