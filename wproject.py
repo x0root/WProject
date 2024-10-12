@@ -135,7 +135,14 @@ def main():
         cleanup_files()  # Call the cleanup function if the flag is set
     args = parser.parse_args()  # Move this line up to ensure args is defined before use
     if args.fbypass:
-        command = ['python3', 'forbiddenpass.py', '-t', domain]  # Use args.domain instead of domain
+        command = ['python3', 'forbiddenpass.py', '-t', args.domain]  # Use args.domain instead of domain
+        from subprocess import Popen, PIPE
+
+        def run_command(command):
+            process = Popen(command, stdout=PIPE, stderr=PIPE, text=True)
+            stdout, stderr = process.communicate()
+            return stdout.strip(), stderr.strip()
+
         stdout, stderr = run_command(command)
         print(f"Running: {' '.join(command)}")  # Print the command being run
         print(f"Output: {stdout}")  # Print the output
