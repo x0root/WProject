@@ -58,7 +58,7 @@ def run_command_with_timeout(command, timeout):
     except subprocess.TimeoutExpired:
         return None, f"Command '{' '.join(command)}' timed out and was killed."
     except Exception as e:
-        return None, str(e)  # Capture any other exceptions
+        return None, str(e)  # Capture any other exceptions 
 
 def main():
     # Display the banner in red
@@ -76,7 +76,9 @@ def main():
     parser.add_argument('--random-agent', action='store_true', help='Use a random user agent for requests')
     parser.add_argument('--fbypass', action='store_true', help='Bypass 403')
     parser.add_argument('--cleanup', action='store_true', help='Delete previous Scan Reports')
+    parser.add_argument('--crawl', action='store_true', help='Web Crawling')
     parser.add_argument('--gui', action='store_true', help='Start an Interactive Web GUI')
+
 
     def start_flask_server():
         from flask import Flask, send_from_directory, request, Response
