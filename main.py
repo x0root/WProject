@@ -9,6 +9,46 @@ from urllib.parse import urlparse  # Moved import to the top for clarity
 import textwrap  # Import textwrap for wrapping text
 import nmap3
 from tabulate import tabulate  # Ensure tabulate is imported
+import html
+
+# Define a class to capture stdout and stderr
+class OutputToHTML:
+    def __init__(self, original_stdout, original_stderr, file_name="output.html"):
+        self.original_stdout = original_stdout
+        self.original_stderr = original_stderr
+        self.file_name = file_name  # Fixed the reference to file_name
+        self.output_buffer = []
+    def write(self, data):
+        # Escape special HTML characters and store them in the buffer
+        escaped_data = html.escape(data)
+        self.output_buffer.append(escaped_data)
+        # Also print to the original terminal output (if you want)
+        self.original_stdout.write(data)
+    
+    def flush(self):
+        pass
+    
+    def save_output(self):
+        # Save the output buffer to an HTML file
+        with open(self.file_name, 'w') as f:
+            f.write("<html><body><pre>\n")
+            f.write("".join(self.output_buffer))
+            f.write("\n</pre></body></html>")
+
+# Replace sys.stdout and sys.stderr
+original_stdout = sys.stdout
+original_stderr = sys.stderr
+output_capturer = OutputToHTML(original_stdout, original_stderr)
+
+sys.stdout = output_capturer
+sys.stderr = output_capturer
+
+# Register function to save output when program exits
+def save_output_on_exit():
+    output_capturer.save_output()
+
+import atexit  # Import atexit here to ensure it's defined
+atexit.register(save_output_on_exit)  # Register the function after importing
 
 def run_command_with_timeout(command, timeout):
     try:
