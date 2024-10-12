@@ -62,5 +62,3 @@ Credits:
 - Nuclei (MIT License)           
 - identYwaf (MIT License)
 - SWS-Recon-Tool (MIT License)              
-
-<p>Its just a basic tool what u expect</p>
