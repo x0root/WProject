@@ -17,6 +17,7 @@ WProject is a Web Attack Surface Management Tool. This tool is designed for secu
    - Web Server Detection
    - JavaScript file scanning for sensitive info
    - Good Scan Report
+   - Web GUI
    - Save Scan Result to File
 
 # Install
