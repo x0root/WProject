@@ -135,9 +135,9 @@ def main():
         print("====Performing Basic Scan====")
 
         commands = [
-            (['python3', 'spyhunt.py', '-or', args.domain, '-v', '-c', '50'], "OR Scan"),
-            (['python3', 'spyhunt.py', '-fi', args.domain], "FavIcon hashes"),
-            (['python3', 'spyhunt.py', '-javascript', args.domain], "Broken Link"),
+            (['python3', 'scan.py', '-or', args.domain, '-v', '-c', '50'], "OR Scan"),
+            (['python3', 'scan.py', '-fi', args.domain], "FavIcon hashes"),
+            (['python3', 'scan.py', '-javascript', args.domain], "Broken Link"),
             (['python3', 'SWS-Recon.py', '--whois', '-d', domain], "Whois"),
             (['python3', 'SWS-Recon.py', '-t', '-d', domain], "Technologies"),
             (['python3', 'SWS-Recon.py', '-a', '-d', domain], "Domain zone transfer attack"),
