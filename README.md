@@ -12,7 +12,6 @@ WProject is a Web Vulnerability Scanner. This tool is designed for security prof
    - 403 Forbidden bypass attempts
    - Directory and file brute-forcing
    - Local File Inclusion (LFI) scanning with Nuclei
-   - Google dorking
    - Directory Traversal
    - Web Server Detection
    - JavaScript file scanning for sensitive info
