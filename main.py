@@ -140,6 +140,7 @@ def main():
             (['python3', 'spyhunt.py', '-javascript', args.domain], "Broken Link"),
             (['python3', 'SWS-Recon.py', '--whois', '-d', domain], "Whois"),
             (['python3', 'SWS-Recon.py', '-t', '-d', domain], "Technologies"),
+            (['python3', 'SWS-Recon.py', '-a', '-d', domain], "Domain zone transfer attack"),
         ]
 
         for command_info in commands:
