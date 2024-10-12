@@ -75,8 +75,8 @@ def main():
     parser.add_argument('--auto', action='store_true', help='Run automated scans')
     parser.add_argument('--random-agent', action='store_true', help='Use a random user agent for requests')
     parser.add_argument('--fbypass', action='store_true', help='Bypass 403')
-    parser.add_argument('--cleanup', action='store_true', help='Delete subdomains.txt and output.html after use')
-    parser.add_argument('--gui', action='store_true', help='Start a Flask web server and serve index.html')
+    parser.add_argument('--cleanup', action='store_true', help='Delete previous Scan Reports')
+    parser.add_argument('--gui', action='store_true', help='Start an Interactive Web GUI')
 
     def start_flask_server():
         from flask import Flask, send_from_directory, request, Response
