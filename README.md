@@ -44,7 +44,7 @@ go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
 
 V.10
 Made by x0root
-usage: main.py [-h] -u DOMAIN [--auto] [--random-agent] [--fbypass]
+usage: main.py [-h] -u DOMAIN [--auto] [--random-agent] [--fbypass] [--cleanup] [--gui]
 
 Automated scanning tool.
 
