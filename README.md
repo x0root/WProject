@@ -61,7 +61,6 @@ Credits:
 - Https (MIT License)            
 - Nuclei (MIT License)           
 - identYwaf (MIT License)
-- SWS-Recon-Tool (MIT License)       
-- Spyhunt (No License)          
+- SWS-Recon-Tool (MIT License)              
 
 <p>Its just a basic tool what u expect</p>
