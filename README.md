@@ -1,6 +1,6 @@
 # About
 
-WProject is an Web Attack Surface Management Tool. This tool is designed for security professionals and penetration testers to perform comprehensive vulnerability scanning on web applications. It uses various external open source vulnerability scanner.
+WProject is a Web Attack Surface Management Tool. This tool is designed for security professionals and penetration testers to perform comprehensive vulnerability scanning on web applications. It uses various external open-source vulnerability scanners.
 
 ## Main Features
 
