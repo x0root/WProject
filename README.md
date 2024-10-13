@@ -56,7 +56,3 @@ options:
   --cleanup             Delete previous Scan Reports
   --gui                 Start an Interactive Web GUI
 ```
-
-Credits:
-- identYwaf (MIT License)
-- SWS-Recon-Tool (MIT License)              
