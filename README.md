@@ -1,7 +1,7 @@
 <img src='https://i.imgur.com/avqZk5i.jpeg' border='0' alt='WProject' width="800" height="auto"/>
 </a>
 
- <img alt="Static Badge" src="https://img.shields.io/badge/Made_with-Python-blue"> <img alt="Static Badge" src="https://img.shields.io/badge/Status-Beta-orange"> <img alt="Static Badge" src="https://img.shields.io/badge/Made in-Indonesia-red"> 
+ <img alt="Static Badge" src="https://img.shields.io/badge/Made_with-Python-blue"> <img alt="Static Badge" src="https://img.shields.io/badge/Status-Beta-orange"> 
 
 
 # About
