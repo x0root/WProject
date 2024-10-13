@@ -1,6 +1,9 @@
 <img src='https://i.imgur.com/avqZk5i.jpeg' border='0' alt='WProject' width="800" height="auto"/>
 </a>
 
+ <img alt="Static Badge" src="https://img.shields.io/badge/Made_with-Python-blue"> <img alt="Static Badge" src="https://img.shields.io/badge/Status-Beta-orange"> <img alt="Static Badge" src="https://img.shields.io/badge/Made in-Indonesia-red"> 
+
+
 # About
 
 WProject is a Web Vulnerability Scanner. This tool is designed for security professionals and penetration testers to perform comprehensive vulnerability scanning on web applications. It uses various external open-source vulnerability tools.
