@@ -1,4 +1,4 @@
-<img src='https://imgur.com/a/wy7hzip' border='0' alt='WProject' width="800" height="auto"/>
+<img src='https://i.imghippo.com/files/D8vpC1728800521.jpg' border='0' alt='WProject' width="800" height="auto"/>
 </a>
 
 # About
