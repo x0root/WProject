@@ -76,7 +76,6 @@ def main():
     parser.add_argument('--random-agent', action='store_true', help='Use a random user agent for requests')
     parser.add_argument('--fbypass', action='store_true', help='Bypass 403')
     parser.add_argument('--cleanup', action='store_true', help='Delete previous Scan Reports')
-    parser.add_argument('--crawl', action='store_true', help='Web Crawling')
     parser.add_argument('--gui', action='store_true', help='Start an Interactive Web GUI')
 
 
@@ -189,8 +188,9 @@ def main():
             (['python3', 'scan.py', '-fi', args.domain], "FavIcon hashes"),
             (['python3', 'scan.py', '-javascript', args.domain], "Broken Link"),
             (['python3', 'whois.py', '-u', domain], "Whois"),
-            (['python3', 'SWS-Recon.py', '-t', '-d', domain], "Technologies"),
-            (['python3', 'SWS-Recon.py', '-a', '-d', domain], "Domain zone transfer attack"),
+            (['python3', 'crawler.py', '-u', domain, '-d', '1'], "Crawler"),
+            (['python3', '2scan.py', '-t', '-d', domain], "Technologies"),
+            (['python3', '2scan.py', '-a', '-d', domain], "Domain zone transfer attack"),
         ]
 
         for command_info in commands:
@@ -223,7 +223,7 @@ def main():
 
         print("====Performing WAF Scan====")
 
-        waf_result = run_command_with_timeout(['python3', 'waf/identYwaf.py', '--random-agent', domain], timeout=30)
+        waf_result = run_command_with_timeout(['python3', 'waf/waf.py', '--random-agent', domain], timeout=30)
         results.append(["WAF Identification", waf_result[0] if waf_result[0] else "Error", waf_result[1] if waf_result[1] else ""])
 
         print("====Performing Nuclei Scan====")
