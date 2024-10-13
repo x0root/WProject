@@ -58,8 +58,5 @@ options:
 ```
 
 Credits:
-- Subfinder (MIT License)             
-- Https (MIT License)            
-- Nuclei (MIT License)           
 - identYwaf (MIT License)
 - SWS-Recon-Tool (MIT License)              
