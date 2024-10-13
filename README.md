@@ -1,5 +1,4 @@
-<a href='https://postimg.cc/HjZWXWkt' target='_blank'>
-    <img src='https://i.postimg.cc/HjZWXWkt/WProject.png' border='0' alt='WProject' width="800" height="auto"/>
+<img src='https://i.postimg.cc/HjZWXWkt/WProject.png' border='0' alt='WProject' width="800" height="auto"/>
 </a>
 
 # About
