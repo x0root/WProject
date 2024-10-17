@@ -57,7 +57,7 @@ options:
   -u                    The domain to scan
   --auto                Run automated scans
   --random-agent        Use a random user agent for requests
-  --fbypass             Bypass 403
+  --fbypass             Try Bypass 403
   --cleanup             Delete previous Scan Reports
   --gui                 Start an Interactive Web GUI
 ```
