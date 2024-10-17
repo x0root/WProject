@@ -34,7 +34,7 @@ else:
 try:
     import concurrent.futures
 except ImportError:
-    print(f"[{YELLOW}!{RESET}] Needs python 3.4 > ro run!")
+    print(f"[{YELLOW}!{RESET}] Needs python 3.4 > to run!")
     sys.exit()
 
 # Args parsing
