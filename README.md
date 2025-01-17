@@ -64,3 +64,6 @@ options:
 
 # Contributing 
 Contributions to WProject are welcome and highly appreciated.
+
+# License
+This project is licensed under the MIT License.
