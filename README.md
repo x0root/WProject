@@ -61,3 +61,7 @@ options:
   --cleanup             Delete previous Scan Reports
   --gui                 Start an Interactive Web GUI
 ```
+
+# Contributing 
+Contributions to WProject are welcome and highly appreciated.
+you can Contact us
