@@ -64,4 +64,3 @@ options:
 
 # Contributing 
 Contributions to WProject are welcome and highly appreciated.
-you can Contact us
