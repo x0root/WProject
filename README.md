@@ -1,7 +1,8 @@
 <img src='https://i.imgur.com/avqZk5i.jpeg' border='0' alt='WProject' width="800" height="auto"/>
 </a>
 
- <img alt="Static Badge" src="https://img.shields.io/badge/Version-2.5-blue"> <img alt="Static Badge" src="https://img.shields.io/badge/Status-Beta-orange"> 
+ <img alt="Static Badge" src="https://img.shields.io/badge/Version-2.5-blue"> <img alt="Static Badge" src="https://img.shields.io/badge/Status-Beta-orange"> [![License](https://img.shields.io/badge/license-MIT-_red.svg)](https://opensource.org/licenses/MIT)
+ 
 
 
 # About
