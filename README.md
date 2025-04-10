@@ -24,7 +24,7 @@ WProject is a Web Vulnerability Scanner. This tool is designed for security prof
    - Good Scan Report
    - Web GUI
    - Save Scan Result to File
-
+   - Open Source
 # Install
 
 ```bash
